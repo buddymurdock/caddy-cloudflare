@@ -9,6 +9,7 @@ on:
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
 
 env:
+  DOCKER_USERNAME: buddymurdock
   DOCKER_CONTAINER_NAME: caddy-cloudflare
   DOCKER_TARGET_PLATFORM: linux/amd64
 
@@ -46,3 +47,6 @@ jobs:
         context: .
         platforms: ${{ steps.prepare.outputs.docker_platform }}
         push: true
+        tags: |
+          ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_CONTAINER_NAME }}:${{ steps.prepare.outputs.tag }}
+          ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_CONTAINER_NAME }}:latest
