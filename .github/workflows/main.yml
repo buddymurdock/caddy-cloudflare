@@ -39,5 +39,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: 
-            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_CONTAINER_NAME }}:${{ steps.prepare.outputs.tag }}
-            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_CONTAINER_NAME }}:latest
+            buddymurdock/caddy-cloudflare:latest
