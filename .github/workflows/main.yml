@@ -1,12 +1,9 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Docker Build & Push
 
 on:
-  push:
-    tags:        
-      - '*'           # Push events to every tag not containing /
-  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+  release:
+    types: [published]  # Триггер при публикации нового релиза
+  workflow_dispatch:    # Возможность ручного запуска из вкладки Actions
 
 env:
   DOCKER_USERNAME: buddymurdock
@@ -38,5 +35,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 
-            buddymurdock/caddy-cloudflare:latest
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_CONTAINER_NAME }}:latest
+            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_CONTAINER_NAME }}:${{ github.event.release.tag_name }}
